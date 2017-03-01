@@ -161,7 +161,14 @@ void Polynome::print() {
 
 // add polynomial P2 to our polynomial
 void Polynome::add(Polynome P2){
-
+	if (P2.li.empty()) return;
+	if (li.empty()) {
+		list<Term>::iterator iterP2 = P2.li.begin(); // iterator at the first element of the polynomial passed as argument
+		while (iterP2 != P2.li.end()) {
+			li.push_back(*iterP2);
+			iterP2++;
+		}
+	}
 	list<Term>::iterator iterP1 = li.begin(); // iterator at the first element of the polynomial
 	list<Term>::iterator iterP2 = P2.li.begin(); // iterator at the first element of the polynomial passed as argument
 
@@ -176,7 +183,7 @@ void Polynome::add(Polynome P2){
 	// add the P2 terms to P1, creating a node if missing
 	while (iterP2 != P2.li.end()) {
 		if (iterP1->getPower() == iterP2->getPower()) { // easy case, we found 2 matching powers, we add terms
-			(*iterP1) = (*iterP1) + (*iterP2);
+			(*iterP1) + (*iterP2);
 			if(iterP1 != --(li.end())) ++iterP1;
 			++iterP2;
 		}
